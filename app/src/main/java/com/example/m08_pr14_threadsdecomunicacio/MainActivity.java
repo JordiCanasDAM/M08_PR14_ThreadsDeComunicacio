@@ -1,9 +1,14 @@
 package com.example.m08_pr14_threadsdecomunicacio;
 
+//URL -> https://api.myip.com
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,6 +22,8 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -30,10 +37,25 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener(){
             @Override public void onClick(View view) {
-                getDataFromUrl("https://api.myip.com");
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+                Handler handler = new Handler(Looper.getMainLooper());
+
+                executor.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.i("INFO:", getDataFromUrl("https://api.myip.com"));
+                        handler.post(new Runnable() {
+                            @Override public void run() {
+                                //UI Thread work here
+                            }
+                        });
+                    }
+                });
             }
         });
     }
+
+
 
     private String getDataFromUrl(String demoIdUrl) {
 
