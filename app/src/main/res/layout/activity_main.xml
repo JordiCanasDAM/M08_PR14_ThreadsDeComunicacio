@@ -10,22 +10,21 @@
         android:id="@+id/button"
         android:layout_width="368dp"
         android:layout_height="54dp"
-        android:layout_marginTop="16dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.558"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.379" />
+        app:layout_constraintTop_toBottomOf="@+id/_dynamic" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="373dp"
-        android:layout_height="587dp"
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="364dp"
+        android:layout_height="636dp"
         android:layout_marginTop="16dp"
-        android:textAlignment="center"
+        android:background="#D1D1D1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
