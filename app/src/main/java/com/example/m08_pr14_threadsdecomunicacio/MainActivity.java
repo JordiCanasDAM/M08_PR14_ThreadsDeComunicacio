@@ -79,10 +79,9 @@ public class MainActivity extends AppCompatActivity {
                         String data = getDataFromUrl("https://api.myip.com");
                         Log.i("INFO:", data);
                         lines.add(data);
-                        adapter.notifyDataSetChanged();
                         handler.post(new Runnable() {
                             @Override public void run() {
-
+                                adapter.notifyDataSetChanged();
                             }
                         });
                     }
