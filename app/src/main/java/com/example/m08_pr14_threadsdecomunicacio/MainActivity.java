@@ -4,6 +4,8 @@ package com.example.m08_pr14_threadsdecomunicacio;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +13,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button button = findViewById(R.id.button);
+        TextView text = findViewById(R.id.textView);
+
         button.setOnClickListener(new View.OnClickListener(){
             @Override public void onClick(View view) {
                 ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -43,10 +48,11 @@ public class MainActivity extends AppCompatActivity {
                 executor.execute(new Runnable() {
                     @Override
                     public void run() {
-                        Log.i("INFO:", getDataFromUrl("https://api.myip.com"));
+                        String data = getDataFromUrl("https://api.myip.com");
+                        Log.i("INFO:", data);
                         handler.post(new Runnable() {
                             @Override public void run() {
-                                //UI Thread work here
+                                text.setText(text.getText()+""+data);
                             }
                         });
                     }
@@ -64,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         InputStream in;
         String error = "";
         try {
+
             URL url = new URL(demoIdUrl);
             URLConnection urlConn = url.openConnection();
 
